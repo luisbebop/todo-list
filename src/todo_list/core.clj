@@ -3,21 +3,27 @@
             [ring.middleware.reload :refer [wrap-reload]]
             [compojure.core :refer [defroutes GET]]
             [compojure.route :refer [not-found]]
-            [ring.handler.dump :refer [handle-dump]]))
+            [ring.handler.dump :refer [handle-dump]]
+            [hiccup.core :refer :all]
+            [hiccup.page :refer :all]))
 
 (defn welcome
   "A ring handler to process all requests sent to the webapp"
   [request]
-  {:status 200
-   :body "<h1> Hello, Clojure World with ring and compojure</h1>"
-   :headers {}})
+  (html [:h1 "Hello, Clojure world"]
+      [:p "Welcome to my first Clojure app"]))
 
 (defn goodbye
-  "A song to wish you goodbyeoo"
+  "A song to wish you goodbye"
   [request]
-  {:status 200
-   :body "<h1>goodbye route</h1>"
-   :headers{}})
+  (html5 {:lang "en"}
+         [:head (include-js "myscript.js") (include-css "mystyle.css")]
+         [:body
+          [:div [:h1 {:class "info" } "Walking back to happiness"]]
+          [:div [:p "Walking back to happiness with you"]]
+          [:div [:p "Said, Farewell to loneliness I knew"]]
+          [:div [:p "Laid aside foolish pride"]]
+          [:div [:p "Learnt the truth from tears I cried"]]]))
 
 (defn request-info
   "View the information contained in the request, useful for debug"
